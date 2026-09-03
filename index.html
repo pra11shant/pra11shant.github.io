@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prashant S. Kamble — Senior Frappe & ERPNext Developer</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23059669'/%3E%3Ctext x='50' y='68' font-size='54' font-family='Poppins,Arial,sans-serif' font-weight='700' fill='white' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
+  <meta name="description" content="Senior Frappe Framework & ERPNext Developer with 5+ years of experience architecting, customizing, and scaling enterprise ERP solutions.">
+  
+  <!-- CSS Dependencies -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --ink: #0f172a;
+      --ink-2: #334155;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --gray: #f8fafc;
+      --accent: #059669;
+      --accent-2: #10b981;
+      --accent-soft: #ecfdf5;
+      --hot: #d97706;
+      --shadow: 0 1px 3px rgba(15,23,42,.05), 0 8px 24px rgba(15,23,42,.06);
+      --shadow-lg: 0 20px 40px -12px rgba(5,150,105,.2), 0 8px 20px rgba(15,23,42,.08);
+      --ease: cubic-bezier(.2,.7,.2,1);
+      --mono: 'JetBrains Mono','SFMono-Regular',ui-monospace,Menlo,monospace;
+    }
+
+    * { scroll-behavior: smooth; }
+    html, body { overflow-x: hidden; max-width: 100%; }
+    body { background: #fff; color: var(--ink); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.6; }
+    h1, h2, h3, .display-4, .navbar-brand { font-family: 'Poppins', sans-serif; letter-spacing: -.02em; }
+    .text-muted-2 { color: var(--muted) !important; }
+    .accent { color: var(--accent); }
+    .section { padding: 5.5rem 0; }
+    .bg-gray { background: var(--gray); }
+    .eyebrow { color: var(--accent); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; font-size: .8rem; }
+    ::selection { background: var(--accent); color: #fff; }
+
+    /* Nav */
+    .navbar { background: rgba(255,255,255,.85); backdrop-filter: saturate(180%) blur(14px); border-bottom: 1px solid var(--line); transition: box-shadow .3s; }
+    .navbar.scrolled { box-shadow: 0 6px 24px rgba(15,23,42,.06); }
+    .navbar-brand { font-weight: 700; color: var(--ink); }
+    .nav-link { color: var(--ink-2) !important; font-weight: 500; font-size: .95rem; position: relative; }
+    .nav-link::after { content: ""; position: absolute; left: 1rem; right: 1rem; bottom: .35rem; height: 2px; border-radius: 2px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transform: scaleX(0); transform-origin: left; transition: transform .3s var(--ease); }
+    .nav-link:hover { color: var(--accent) !important; }
+    .nav-link:hover::after { transform: scaleX(1); }
+
+    /* Buttons */
+    .btn-primary-x { position: relative; overflow: hidden; background: var(--ink); color: #fff; border: 1px solid var(--ink); border-radius: 12px; font-weight: 600; padding: .7rem 1.5rem; transition: .25s var(--ease); }
+    .btn-primary-x::before { content: ""; position: absolute; inset: 0; background: linear-gradient(120deg, var(--accent), var(--accent-2)); opacity: 0; transition: opacity .3s; }
+    .btn-primary-x span, .btn-primary-x i { position: relative; z-index: 1; }
+    .btn-primary-x:hover { color: #fff; transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+    .btn-primary-x:hover::before { opacity: 1; }
+    .btn-primary-x i { transition: transform .25s var(--ease); }
+    .btn-primary-x:hover i { transform: translateX(4px); }
+    .btn-outline-x { background: #fff; color: var(--ink); border: 1px solid var(--line); border-radius: 12px; font-weight: 600; padding: .7rem 1.5rem; transition: .25s var(--ease); }
+    .btn-outline-x:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); box-shadow: var(--shadow); }
+
+    /* Hero */
+    .hero { position: relative; padding: 8.5rem 0 4.5rem; overflow: hidden; background: radial-gradient(700px 420px at 88% 20%, rgba(5,150,105,.08) 0, transparent 65%), radial-gradient(600px 400px at 5% 90%, rgba(217,119,6,.06) 0, transparent 60%); }
+    .hero::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .4; background-image: linear-gradient(#e2e8f0 1px, transparent 1px), linear-gradient(90deg, #e2e8f0 1px, transparent 1px); background-size: 44px 44px; -webkit-mask: radial-gradient(700px 500px at 80% 30%, #000, transparent 75%); mask: radial-gradient(700px 500px at 80% 30%, #000, transparent 75%); }
+    .hero .container { position: relative; z-index: 1; }
+    .hero .hi { font-family: var(--mono); color: var(--accent); font-weight: 600; font-size: 1rem; }
+    .hero .role { font-family: var(--mono); color: var(--hot); font-weight: 600; font-size: 1.35rem; }
+    .caret { display: inline-block; width: 3px; height: 1.2em; background: var(--hot); margin-left: 2px; vertical-align: -2px; animation: blink 1s steps(1) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .hero .lead b { color: var(--ink); font-weight: 700; }
+    .soc { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: var(--ink-2); border: 1px solid var(--line); background: #fff; font-size: 1.1rem; transition: .25s var(--ease); text-decoration: none; }
+    .soc:hover { color: #fff; background: var(--accent); border-color: var(--accent); transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+
+    /* Orbit Visual */
+    .orbit { position: relative; width: 100%; max-width: 380px; aspect-ratio: 1; margin-inline: auto; }
+    .orbit::before { content: ""; position: absolute; inset: 14%; border-radius: 50%; z-index: 0; background: radial-gradient(circle at 50% 40%, rgba(5,150,105,.25), transparent 68%); filter: blur(24px); animation: pulse 5s ease-in-out infinite; }
+    @keyframes pulse { 50% { transform: scale(1.06); opacity: .85; } }
+    .ring { position: absolute; inset: 0; border: 1px dashed #cbd5e1; border-radius: 50%; animation: spin 40s linear infinite; }
+    .ring.two { inset: 12%; border-color: #dbe2ee; animation-duration: 28s; animation-direction: reverse; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .photo { position: absolute; inset: 22%; border-radius: 50%; z-index: 1; overflow: hidden; display: grid; place-items: center; background: linear-gradient(160deg, #10b981, #059669 55%, #047857); border: 6px solid #fff; box-shadow: 0 26px 60px -12px rgba(5,150,105,.45), inset 0 2px 6px rgba(255,255,255,.35); }
+    .photo .mono { position: relative; font-family: 'Poppins'; font-weight: 800; font-size: 3.2rem; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,.15); letter-spacing: .02em; }
+    .chip { position: absolute; z-index: 2; width: 54px; height: 54px; border-radius: 16px; background: rgba(255,255,255,.9); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,.7); display: grid; place-items: center; font-size: 1.4rem; box-shadow: 0 10px 28px rgba(15,23,42,.12); animation: float 4s ease-in-out infinite; }
+    .chip.c1 { top: 6%; left: 16%; color: #059669; }
+    .chip.c2 { top: 14%; right: 8%; color: #2563eb; animation-delay: .6s; }
+    .chip.c3 { bottom: 20%; left: 2%; color: #7c3aed; animation-delay: 1.2s; }
+    .chip.c4 { bottom: 6%; right: 16%; color: #d97706; animation-delay: 1.8s; }
+    @keyframes float { 50% { transform: translateY(-10px); } }
+
+    /* Skills Grid */
+    .skill { --c: var(--accent); position: relative; padding: 1.8rem; border: 1px solid var(--line); border-radius: 18px; background: #fff; height: 100%; transition: transform .3s var(--ease), box-shadow .3s var(--ease); overflow: hidden; }
+    .skill::after { content: ""; position: absolute; top: -30%; right: -25%; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--c) 20%, transparent), transparent 70%); opacity: .5; transition: opacity .35s, transform .35s; z-index: 0; }
+    .skill:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -14px color-mix(in srgb, var(--c) 35%, transparent), 0 8px 20px rgba(15,23,42,.06); }
+    .skill .ic { position: relative; z-index: 1; width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; font-size: 1.4rem; margin-bottom: 1.1rem; color: var(--c); background: color-mix(in srgb, var(--c) 12%, #fff); border: 1px solid color-mix(in srgb, var(--c) 22%, var(--line)); transition: transform .3s var(--ease); }
+    .skill:hover .ic { transform: scale(1.08) rotate(-4deg); }
+    .skill h3 { position: relative; z-index: 1; font-size: 1.1rem; font-weight: 700; margin-bottom: .4rem; }
+    .skill p { position: relative; z-index: 1; color: var(--muted); font-size: .88rem; margin-bottom: 0; }
+    .tags { position: relative; z-index: 1; margin-top: .9rem; display: flex; flex-wrap: wrap; gap: .4rem; }
+    .tag { font-size: .75rem; color: var(--ink-2); background: var(--gray); border: 1px solid var(--line); border-radius: 8px; padding: .25rem .55rem; font-weight: 500; }
+
+    /* Stat Cards */
+    .stat-card { --c: var(--accent); position: relative; border: 1px solid color-mix(in srgb, var(--c) 15%, var(--line)); border-radius: 18px; padding: 1.6rem 1rem; text-align: center; overflow: hidden; background: linear-gradient(160deg, color-mix(in srgb, var(--c) 6%, #fff), #fff); transition: transform .3s var(--ease), box-shadow .3s var(--ease); }
+    .stat-card:hover { transform: translateY(-5px); box-shadow: 0 18px 36px -12px color-mix(in srgb, var(--c) 35%, transparent); }
+    .stat-card .num { font-family: 'Poppins'; font-weight: 800; font-size: 2.3rem; line-height: 1; color: var(--c); }
+    .stat-card .lbl { color: var(--muted); font-size: .85rem; margin-top: .4rem; font-weight: 500; }
+
+    /* Module Tiles */
+    .mod { --c: var(--accent); position: relative; display: flex; align-items: center; gap: .8rem; padding: .9rem 1.1rem; border: 1px solid color-mix(in srgb, var(--c) 16%, var(--line)); border-radius: 14px; background: linear-gradient(135deg, color-mix(in srgb, var(--c) 5%, #fff), #fff); font-weight: 600; font-size: .92rem; transition: transform .25s var(--ease), box-shadow .25s var(--ease); }
+    .mod i { width: 38px; height: 38px; flex: none; border-radius: 10px; display: grid; place-items: center; font-size: 1.1rem; color: var(--c); background: color-mix(in srgb, var(--c) 12%, #fff); }
+    .mod:hover { transform: translateY(-3px); box-shadow: 0 12px 28px -10px color-mix(in srgb, var(--c) 40%, transparent); color: var(--c); }
+
+    #modules [class*="col-"]:nth-child(6n+1) .mod { --c: #059669; }
+    #modules [class*="col-"]:nth-child(6n+2) .mod { --c: #2563eb; }
+    #modules [class*="col-"]:nth-child(6n+3) .mod { --c: #7c3aed; }
+    #modules [class*="col-"]:nth-child(6n+4) .mod { --c: #d97706; }
+    #modules [class*="col-"]:nth-child(6n+5) .mod { --c: #0891b2; }
+    #modules [class*="col-"]:nth-child(6n) .mod { --c: #e11d48; }
+
+    /* Projects */
+    .proj { --c: var(--accent); position: relative; border: 1px solid color-mix(in srgb, var(--c) 15%, var(--line)); border-radius: 18px; background: #fff; overflow: hidden; height: 100%; display: flex; flex-direction: column; transition: transform .3s var(--ease), box-shadow .3s var(--ease); }
+    .proj::after { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--c), color-mix(in srgb, var(--c) 40%, #fff)); }
+    .proj:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -12px color-mix(in srgb, var(--c) 35%, transparent); }
+    .proj .body { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
+    .proj h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: .5rem; display: flex; justify-content: space-between; align-items: center; gap: .5rem; }
+    .proj p { color: var(--muted); font-size: .9rem; margin-bottom: .8rem; }
+    .proj .feat { list-style: none; padding: 0; margin: 0 0 1rem; }
+    .proj .feat li { position: relative; padding-left: 1.25rem; padding-block: .2rem; font-size: .85rem; color: var(--ink-2); }
+    .proj .feat li::before { content: ""; position: absolute; left: 0; top: .65em; width: 6px; height: 6px; border-radius: 50%; background: var(--c); }
+    .proj .foot { margin-top: auto; padding-top: .6rem; }
+
+    #projects [class*="col-"]:nth-child(5n+1) .proj { --c: #059669; }
+    #projects [class*="col-"]:nth-child(5n+2) .proj { --c: #2563eb; }
+    #projects [class*="col-"]:nth-child(5n+3) .proj { --c: #7c3aed; }
+    #projects [class*="col-"]:nth-child(5n+4) .proj { --c: #d97706; }
+    #projects [class*="col-"]:nth-child(5n) .proj { --c: #0891b2; }
+
+    /* Experience */
+    .exp { position: relative; border: 1px solid var(--line); border-radius: 20px; padding: 2rem; background: #fff; overflow: hidden; box-shadow: var(--shadow); transition: transform .3s var(--ease), box-shadow .3s var(--ease); }
+    .exp::before { content: ""; position: absolute; top: 0; left: 0; bottom: 0; width: 5px; background: linear-gradient(var(--accent), var(--accent-2)); }
+    .exp:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .exp-head { display: flex; align-items: center; gap: 1rem; position: relative; z-index: 1; }
+    .exp-badge { width: 56px; height: 56px; flex: none; border-radius: 16px; display: grid; place-items: center; font-size: 1.5rem; color: #fff; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 10px 20px -6px rgba(5,150,105,.4); }
+    .exp .role { font-family: 'Poppins'; font-weight: 700; font-size: 1.25rem; line-height: 1.2; }
+    .badge-present { display: inline-flex; align-items: center; gap: .4rem; font-size: .75rem; font-weight: 600; color: #047857; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 999px; padding: .3rem .75rem; }
+    .badge-present .dot { width: 7px; height: 7px; border-radius: 50%; background: #10b981; box-shadow: 0 0 8px #10b981; }
+    .exp .divide { height: 1px; background: var(--line); margin: 1.25rem 0; }
+    .li-check { color: var(--ink-2); font-size: .92rem; padding: .35rem 0; display: flex; align-items: flex-start; gap: .55rem; }
+    .li-check i { color: var(--accent); font-size: 1.05rem; margin-top: .1rem; flex: none; }
+
+    /* Contact Links */
+    .contact-link { display: flex; align-items: center; gap: .85rem; padding: 1rem 1.2rem; border: 1px solid var(--line); border-radius: 14px; text-decoration: none; color: var(--ink); background: #fff; transition: .2s var(--ease); }
+    .contact-link:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: var(--accent); color: var(--ink); }
+    .contact-link .ic { width: 42px; height: 42px; border-radius: 12px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-size: 1.2rem; flex: none; }
+
+    footer { border-top: 1px solid var(--line); color: var(--muted); }
+
+    /* Responsive */
+    @media (max-width: 991px) {
+      .navbar-collapse { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 1rem; margin-top: .75rem; box-shadow: var(--shadow); }
+      .nav-link::after { display: none; }
+      .hero { text-align: left; padding-top: 7rem; }
+      .orbit { margin-top: 2rem; }
+    }
+    @media (max-width: 576px) {
+      h1.display-4 { font-size: 2.1rem; }
+      .hero .role { font-size: 1.15rem; }
+      .skill, .exp { padding: 1.3rem; }
+      .orbit { max-width: 270px; }
+      .chip { width: 44px; height: 44px; font-size: 1.1rem; }
+      .photo .mono { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#top">Prashant<span class="accent">.</span></a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <i class="bi bi-list fs-3"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item"><a class="nav-link px-3" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="#modules">Modules</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="#experience">Experience</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="top">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-7">
+          <div class="hi mb-3">👋 Hello, I'm</div>
+          <h1 class="display-4 fw-bold mb-2">Prashant S. Kamble</h1>
+          <p class="role mb-3">Senior Frappe &amp; ERPNext Developer<span class="caret"></span></p>
+          <p class="fs-6 lead text-muted-2 mb-4" style="max-width: 580px;">
+            Results-driven engineer with <b>5+ years of hands-on experience</b> architecting, customizing, and scaling enterprise ERP solutions. Specialist in <b>tax authority integrations</b>, major-version migrations, and full-stack Frappe applications.
+          </p>
+          <div class="d-flex flex-wrap gap-3 mb-4">
+            <a href="#projects" class="btn btn-primary-x"><span>Featured Work</span> <i class="bi bi-arrow-right"></i></a>
+            <a href="#contact" class="btn btn-outline-x">Get in Touch</a>
+          </div>
+          <div class="d-flex gap-2">
+            <a class="soc" href="mailto:kambleprashant@outlook.com" aria-label="Email"><i class="bi bi-envelope"></i></a>
+            <a class="soc" href="tel:+919404020343" aria-label="Phone"><i class="bi bi-telephone"></i></a>
+            <a class="soc" href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+            <a class="soc" href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub"><i class="bi bi-github"></i></a>
+            <a class="soc" href="https://discuss.frappe.io" target="_blank" rel="noopener" aria-label="Frappe Forum"><i class="bi bi-chat-square-code"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="orbit">
+            <div class="ring"></div><div class="ring two"></div>
+            <div class="chip c1" title="Frappe Framework"><i class="bi bi-layers-fill"></i></div>
+            <div class="chip c2" title="Python"><i class="bi bi-filetype-py"></i></div>
+            <div class="chip c3" title="REST APIs"><i class="bi bi-plug-fill"></i></div>
+            <div class="chip c4" title="Cloud DevOps"><i class="bi bi-cloud-check-fill"></i></div>
+            <div class="photo">
+              <span class="mono">PK</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ABOUT / STATS -->
+  <section class="section bg-gray" id="about">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-5">
+          <div class="eyebrow mb-2">Technical Summary</div>
+          <h2 class="fw-bold mb-3">Enterprise ERP Architecture &amp; Customization</h2>
+          <p class="text-muted-2 mb-0">
+            Proven track record of managing full multi-project lifecycles from technical design to cloud production deployment on AWS and Linode. Experienced in complex tax portal API integrations, custom script automation, print format engines, and backend migration patches across core ERPNext modules.
+          </p>
+        </div>
+        <div class="col-lg-7">
+          <div class="row g-3">
+            <div class="col-sm-4">
+              <div class="stat-card">
+                <div class="num">5+</div>
+                <div class="lbl">Years Experience</div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="stat-card" style="--c: #2563eb;">
+                <div class="num">15+</div>
+                <div class="lbl">Enterprise Projects</div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="stat-card" style="--c: #7c3aed;">
+                <div class="num">v13-16</div>
+                <div class="lbl">Frappe/ERPNext Versions</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section" id="skills">
+    <div class="container">
+      <div class="text-center mb-5">
+        <div class="eyebrow mb-2">Capabilities</div>
+        <h2 class="fw-bold">Technical Competencies</h2>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="skill" style="--c: #059669;">
+            <div class="ic"><i class="bi bi-cpu"></i></div>
+            <h3>Core &amp; Frameworks</h3>
+            <p>Frappe Framework, ERPNext (v13–v16), Custom App Architecture, DocType Design.</p>
+            <div class="tags">
+              <span class="tag">Frappe</span><span class="tag">ERPNext</span><span class="tag">DocTypes</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="skill" style="--c: #2563eb;">
+            <div class="ic"><i class="bi bi-code-slash"></i></div>
+            <h3>Languages</h3>
+            <p>Full-stack backend and client scripting with Jinja templating &amp; relational data queries.</p>
+            <div class="tags">
+              <span class="tag">Python</span><span class="tag">JS (ES6+)</span><span class="tag">SQL</span><span class="tag">Jinja2</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="skill" style="--c: #7c3aed;">
+            <div class="ic"><i class="bi bi-arrow-repeat"></i></div>
+            <h3>Integrations &amp; APIs</h3>
+            <p>Government portal synchronization, REST endpoints, webhooks, XML &amp; JSON data flow.</p>
+            <div class="tags">
+              <span class="tag">SRI e-Invoicing</span><span class="tag">REST APIs</span><span class="tag">Webhooks</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="skill" style="--c: #d97706;">
+            <div class="ic"><i class="bi bi-hdd-network"></i></div>
+            <h3>DevOps &amp; Database</h3>
+            <p>Server deployments, database migration patches, version control and bench pipelines.</p>
+            <div class="tags">
+              <span class="tag">MariaDB</span><span class="tag">AWS EC2</span><span class="tag">Linode</span><span class="tag">Bench CLI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULES -->
+  <section class="section bg-gray" id="modules">
+    <div class="container">
+      <div class="text-center mb-4">
+        <div class="eyebrow mb-2">Functional Domains</div>
+        <h2 class="fw-bold">ERPNext Module Expertise</h2>
+      </div>
+      <div class="row g-3 justify-content-center">
+        <div class="col-6 col-md-4 col-lg-2">
+          <div class="mod"><i class="bi bi-people"></i> HRMS</div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2">
+          <div class="mod"><i class="bi bi-cash-stack"></i> Accounts</div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2">
+          <div class="mod"><i class="bi bi-cart-check"></i> Buying</div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2">
+          <div class="mod"><i class="bi bi-graph-up-arrow"></i> Selling</div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2">
+          <div class="mod"><i class="bi bi-boxes"></i> Stock</div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2">
+          <div class="mod"><i class="bi bi-gear-wide-connected"></i> Manufacturing</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="text-center mb-5">
+        <div class="eyebrow mb-2">Portfolio</div>
+        <h2 class="fw-bold">Featured Projects &amp; Solutions</h2>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="proj">
+            <div class="body">
+              <h3>Protecsa <i class="bi bi-shield-check accent"></i></h3>
+              <p>Government Tax Authority Integration (Ecuador SRI)</p>
+              <ul class="feat">
+                <li>Automated e-invoicing integration connecting ERPNext with SRI portal.</li>
+                <li>Engineered modules to generate, digitally sign, and validate XML invoices.</li>
+                <li>Handled dynamic authorization key generation and real-time verification.</li>
+              </ul>
+              <div class="foot">
+                <span class="tag">SRI API</span> <span class="tag">XML</span> <span class="tag">Frappe</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="proj">
+            <div class="body">
+              <h3>Everest Metal Industries <i class="bi bi-arrow-up-circle accent"></i></h3>
+              <p>Major Platform Upgrade (v14 to v16)</p>
+              <ul class="feat">
+                <li>Executed major version migration from ERPNext v14 directly to v16.</li>
+                <li>Authored custom Python migration patches to map legacy database schemas.</li>
+                <li>Safely transferred historical records and resolved breaking changes post-upgrade.</li>
+              </ul>
+              <div class="foot">
+                <span class="tag">Migration</span> <span class="tag">Python Patches</span> <span class="tag">MariaDB</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="proj">
+            <div class="body">
+              <h3>Duncan and Rose <i class="bi bi-file-earmark-code accent"></i></h3>
+              <p>Custom Dynamic App &amp; Engine</p>
+              <ul class="feat">
+                <li>Built a dedicated custom Frappe application to render pixel-perfect proposal templates.</li>
+                <li>Refactored dynamic UI pages handling external JSON payloads.</li>
+                <li>Maintained real-time asynchronous backend database synchronization.</li>
+              </ul>
+              <div class="foot">
+                <span class="tag">Custom App</span> <span class="tag">JSON</span> <span class="tag">JavaScript</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-6">
+          <div class="proj">
+            <div class="body">
+              <h3>Enterprise ERP Next Systems <i class="bi bi-building accent"></i></h3>
+              <p>Blinkit, Parason Machinery, Cap-Grid &amp; More</p>
+              <ul class="feat">
+                <li>Engineered custom operational and stock flows designed to withstand high-frequency transaction rates.</li>
+                <li>Designed server-side Python hooks and client-side JS controllers to automate complex workflow transitions.</li>
+                <li>Formulated custom Jinja print formats and Query/Script reports for executive dashboard visualization.</li>
+              </ul>
+              <div class="foot">
+                <span class="tag">Workflow Engine</span> <span class="tag">Python Hooks</span> <span class="tag">Reports</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-6">
+          <div class="proj">
+            <div class="body">
+              <h3>Production Cloud Infrastructure <i class="bi bi-cloud-arrow-up accent"></i></h3>
+              <p>Deployment &amp; Package Infrastructure</p>
+              <ul class="feat">
+                <li>Spearheaded end-to-end cloud infrastructure setup on Linode and AWS EC2 for live enterprise instances.</li>
+                <li>Built modular reusable Frappe packages to extend capabilities without modifying core codebase.</li>
+                <li>Automated high-volume data onboarding routines using custom Python XLSX importers.</li>
+              </ul>
+              <div class="foot">
+                <span class="tag">AWS EC2</span> <span class="tag">Linode</span> <span class="tag">Bench CLI</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="section bg-gray" id="experience">
+    <div class="container">
+      <div class="text-center mb-5">
+        <div class="eyebrow mb-2">Career History</div>
+        <h2 class="fw-bold">Professional Experience</h2>
+      </div>
+
+      <div class="d-flex flex-column gap-4 style-experience">
+        
+        <!-- Job 1 -->
+        <div class="exp">
+          <div class="exp-head">
+            <div class="exp-badge"><i class="bi bi-briefcase-fill"></i></div>
+            <div>
+              <div class="role">Senior ERPNext Developer</div>
+              <div class="text-muted-2 fw-medium">Craft Interactive | Remote</div>
+            </div>
+            <div class="ms-auto">
+              <span class="badge-present"><span class="dot"></span> Feb 2026 – Sep 2026</span>
+            </div>
+          </div>
+          <div class="divide"></div>
+          <div class="li-check"><i class="bi bi-check-circle-fill"></i><span>Lead technical design and implementation across concurrent enterprise ERPNext customization and integration projects.</span></div>
+          <div class="li-check"><i class="bi bi-check-circle-fill"></i><span><b>Protecsa:</b> Engineered an automated e-invoicing integration connecting ERPNext with the Ecuadorian tax portal (SRI) using unique authorization keys and signed XML.</span></div>
+          <div class="li-check"><i class="bi bi-check-circle-fill"></i><span><b>Duncan and Rose:</b> Built a custom Frappe application to render complex pixel-perfect proposal templates handling external JSON payloads.</span></div>
+          <div class="li-check"><i class="bi bi-check-circle-fill"></i><span><b>Everest Metal Industries:</b> Executed major version migration from ERPNext v14 to v16, writing custom patches and resolving breaking updates.</span></div>
+          <div class="li-check"><i class="bi bi-check-circle-fill"></i><span><b>SASCO:</b> Customized standard HRMS module workflows to align with client-specific compliance and HR policies.</span></div>
+        </div>
+
+        <!-- Job 2 -->
+        <div class="exp">
+          <div class="exp-head">
+            <div class="exp-badge" style="background: linear-gradient(135deg, #2563eb, #3b82f6);"><i class="bi bi-code-square"></i></div>
+            <div>
+              <div class="role">ERPNext / Frappe Developer</div>
+              <div class="text-muted-2 fw-medium">8848digital | Hybrid</div>
+            </div>
+            <div class="ms-auto text-muted-2 fw-medium fs-7">
+              July 2023 – September 2025
+            </div>
+          </div>
+          <div class="divide"></div>
+          <div class="li-check"><i class="bi bi-check-circle-fill"></i><span>Engineered custom ERPNext solutions across enterprise accounts including <b>Blinkit, Parason Machinery, Gurukrupa, AR-Gold, and Cap-Grid</b>.</span></div>
+          <div class="li-check"><i class="bi bi-check-circle-fill"></i><span>Designed server-side Python logic (hooks, document events) and client-side JavaScript controllers for workflow automation.</span></div>
+          <div class="li-check"><i class="bi bi-check-circle-fill"></i><span>Formulated custom DocTypes, Jinja print formats, and Query/Script reports to streamline cross-departmental operations.</span></div>
+          <div class="li-check"><i class="bi bi-check-circle-fill"></i><span>Enforced Git branching strategies, code reviews, and managed seamless deployments across staging and production environments.</span></div>
+        </div>
+
+        <!-- Job 3 -->
+        <div class="exp">
+          <div class="exp-head">
+            <div class="exp-badge" style="background: linear-gradient(135deg, #7c3aed, #8b5cf6);"><i class="bi bi-server"></i></div>
+            <div>
+              <div class="role">ERPNext Developer</div>
+              <div class="text-muted-2 fw-medium">Mehta Softech PPL | Ahmedabad, Gujarat</div>
+            </div>
+            <div class="ms-auto text-muted-2 fw-medium fs-7">
+              December 2022 – June 2023
+            </div>
+          </div>
+          <div class="divide"></div>
+          <div class="li-check"><i class="bi bi-check-circle-fill"></i><span>Spearheaded cloud infrastructure deployment for production clients (erp.mehtaexpai.com, erp.hexacool.co.in) on Linode and AWS.</span></div>
+          <div class="li-check"><i class="bi bi-check-circle-fill"></i><span>Built modular, reusable Frappe packages—including an advanced printing app—extending core ERP capabilities without modifying base source.</span></div>
+          <div class="li-check"><i class="bi bi-check-circle-fill"></i><span>Automated high-volume data onboarding routines using custom Python XLSX importers, significantly reducing onboarding time.</span></div>
+        </div>
+
+        <!-- Job 4 -->
+        <div class="exp">
+          <div class="exp-head">
+            <div class="exp-badge" style="background: linear-gradient(135deg, #d97706, #f59e0b);"><i class="bi bi-gear-fill"></i></div>
+            <div>
+              <div class="role">Officer (Software Programmer - ERPNext)</div>
+              <div class="text-muted-2 fw-medium">Parason Machinery Pvt. Ltd. | Aurangabad, Maharashtra</div>
+            </div>
+            <div class="ms-auto text-muted-2 fw-medium fs-7">
+              May 2021 – December 2022
+            </div>
+          </div>
+          <div class="divide"></div>
+          <div class="li-check"><i class="bi bi-check-circle-fill"></i><span>Developed and maintained internal global ERPNext instances (myerp.parason.com) serving multi-location enterprise manufacturing operations.</span></div>
+          <div class="li-check"><i class="bi bi-check-circle-fill"></i><span>Developed custom full-stack Frappe applications tailored to manufacturing workflows, bill of materials (BOM), and stock ledger tracking.</span></div>
+        </div>
+
+        <!-- Earlier Roles Accordion/List -->
+        <div class="p-3 border rounded-3 bg-white text-muted-2 fs-6">
+          <div class="fw-semibold text-dark mb-2"><i class="bi bi-clock-history accent"></i> Earlier Foundations</div>
+          <ul class="mb-0 ps-3">
+            <li><b>Cloud Operations Engineer</b> at Arceus Infotech (Oct 2017 – Aug 2018) — AWS &amp; Linode cloud provisioning &amp; cost optimization.</li>
+            <li><b>ABAP Developer</b> at Kclink Technologies (Oct 2015 – Apr 2017) — SAP ABAP reports, BDC routines, and modular extensions.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="section" id="education">
+    <div class="container">
+      <div class="text-center mb-5">
+        <div class="eyebrow mb-2">Background</div>
+        <h2 class="fw-bold">Education</h2>
+      </div>
+      <div class="row g-4 justify-content-center">
+        <div class="col-md-5">
+          <div class="p-4 border rounded-4 bg-gray text-center h-100">
+            <i class="bi bi-mortarboard-fill fs-1 accent mb-2 d-block"></i>
+            <h3 class="h5 fw-bold mb-1">Bachelor of Engineering (B.E.)</h3>
+            <p class="text-muted mb-2">Computer Science (2014) | 63.53%</p>
+            <p class="small text-muted-2 mb-0">P.E.S. College of Engineering, Aurangabad</p>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="p-4 border rounded-4 bg-gray text-center h-100">
+            <i class="bi bi-journal-bookmark-fill fs-1 accent mb-2 d-block"></i>
+            <h3 class="h5 fw-bold mb-1">Diploma in Computer Engineering</h3>
+            <p class="text-muted mb-2">(2011) | 64.14%</p>
+            <p class="small text-muted-2 mb-0">M.I.T. College of Engineering, Aurangabad</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section bg-gray" id="contact">
+    <div class="container">
+      <div class="max-width-md mx-auto text-center mb-5">
+        <div class="eyebrow mb-2">Connect</div>
+        <h2 class="fw-bold mb-3">Get In Touch</h2>
+        <p class="text-muted-2">Available for enterprise Frappe consulting, custom ERPNext implementations, or full-time opportunities.</p>
+      </div>
+
+      <div class="row g-4 justify-content-center">
+        <div class="col-md-4">
+          <a href="mailto:kambleprashant@outlook.com" class="contact-link">
+            <div class="ic"><i class="bi bi-envelope-fill"></i></div>
+            <div>
+              <div class="small text-muted">Email</div>
+              <div class="fw-semibold fs-7">kambleprashant@outlook.com</div>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-4">
+          <a href="tel:+919404020343" class="contact-link">
+            <div class="ic"><i class="bi bi-telephone-fill"></i></div>
+            <div>
+              <div class="small text-muted">Phone</div>
+              <div class="fw-semibold">+91-9404020343</div>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-4">
+          <div class="contact-link">
+            <div class="ic"><i class="bi bi-geo-alt-fill"></i></div>
+            <div>
+              <div class="small text-muted">Location</div>
+              <div class="fw-semibold">Pune, Maharashtra, IN</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-4 text-center fs-7">
+    <div class="container">
+      <p class="mb-0">&copy; Prashant S. Kamble. Built with Bootstrap &amp; Frappe spirit.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/bootstrap.bundle.min.js"></script>
+</body>
+</html>
